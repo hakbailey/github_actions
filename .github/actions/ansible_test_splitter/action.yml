@@ -32,16 +32,16 @@ runs:
     - name: setup python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.9"
+        python-version: "3.11"
 
     - name: Install python required libraries
       run: pip install -U pyyaml
       shell: bash
 
-    - name: Set variable to set test all targets
-      run: echo "ANSIBLE_TEST_ALL_THE_TARGETS=true" >> "$GITHUB_ENV"
-      shell: bash
-      if: ${{ (contains(github.event.pull_request.labels.*.name, 'test-all-the-targets')) }}
+    # - name: Set variable to set test all targets
+    #   run: echo "ANSIBLE_TEST_ALL_THE_TARGETS=true" >> "$GITHUB_ENV"
+    #   shell: bash
+    #   if: ${{ (contains(github.event.pull_request.labels.*.name, 'test-all-the-targets')) }}
 
     - name: Evaluate targets to test
       id: splitter
@@ -50,6 +50,6 @@ runs:
       env:
         COLLECTIONS_TO_TEST: "${{ inputs.collections_to_test }}"
         TOTAL_JOBS: "${{ inputs.total_jobs }}"
-        PULL_REQUEST_BODY: "${{ github.event.pull_request.body }}"
+        PULL_REQUEST_BODY: ""
         PULL_REQUEST_BASE_REF: "${{ inputs.base_ref || github.event.pull_request.base.ref }}"
       shell: bash

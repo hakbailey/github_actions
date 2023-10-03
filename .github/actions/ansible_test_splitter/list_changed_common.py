@@ -164,7 +164,7 @@ class WhatHaveChanged:
         """
         assert isinstance(change_path, PosixPath)
         self.collection_path = change_path
-        self.base_ref = base_ref
+        self.base_ref = base_ref.strip('"')
         self.collection_name = read_collection_name(change_path)
         self.files = []  # type: List[PosixPath]
 
